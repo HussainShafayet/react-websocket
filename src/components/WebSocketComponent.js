@@ -8,8 +8,16 @@ const WebSocketComponent = () => {
   const [input, setInput] = useState("");
 
   const handleSend = () => {
-    sendMessage(input);
-    setInput("");
+    if (input.trim()) {
+      sendMessage(input);
+      setInput("");
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSend();
+    }
   };
 
   return (
@@ -25,6 +33,7 @@ const WebSocketComponent = () => {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Type a message"
           className="flex-1 px-4 py-2 mr-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+          onKeyDown={handleKeyPress}
         />
         <button
           onClick={handleSend}
@@ -36,7 +45,7 @@ const WebSocketComponent = () => {
 
       <h3 className="text-lg font-semibold text-gray-700 mb-2">Messages:</h3>
       <ul className="space-y-2 max-h-40 overflow-y-auto bg-gray-50 p-4 border rounded-lg">
-        {messages.map((msg, index) => (
+        {[...messages].reverse().map((msg, index) => (
           <li key={index} className="bg-blue-100 px-4 py-2 rounded shadow-sm text-gray-700">
             {msg}
           </li>
