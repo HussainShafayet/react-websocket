@@ -1,13 +1,15 @@
 // src/hooks/useWebSocket.js
 import { useEffect, useRef, useState } from "react";
 
-const useWebSocket = (url) => {
+const useWebSocket = (url, token) => {
   const [messages, setMessages] = useState([]);
   const [status, setStatus] = useState("Disconnected");
   const ws = useRef(null);
 
   useEffect(() => {
-    ws.current = new WebSocket(url);
+     // Include the token as a query parameter in the WebSocket URL
+     const wsUrl = `${url}?token=${token}`;
+    ws.current = new WebSocket(wsUrl);
 
     ws.current.onopen = () => {
       console.log("Connected to WebSocket");

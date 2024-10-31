@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import useWebSocket from "../hooks/useWebSocket";
 
 const WebSocketComponent = () => {
-  const { messages, sendMessage, status } = useWebSocket("wss://echo.websocket.org"); // Replace with your WebSocket URL
+    const token = "your-authentication-token"; // Replace this with your actual token
+  const { messages, sendMessage, status } = useWebSocket("wss://echo.websocket.org", token); // Replace with your WebSocket URL
   const [input, setInput] = useState("");
 
   const handleSend = () => {
